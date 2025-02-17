@@ -1,12 +1,12 @@
 {
   "name": "next-admin-ts",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx watch --exclude ./next --exclude ./public --include './src/**/*' server.ts",
+    "dev": "cross-env NODE_ENV=development tsx watch --exclude ./next --exclude ./public --include './src/**/*' server.ts",
     "build": "next build",
-    "start": "tsx server.ts",
+    "start": "cross-env NODE_ENV=production tsx server.ts",
     "lint": "next lint",
     "orm:generate": "prisma generate",
     "orm:push": "prisma db push",
@@ -20,6 +20,7 @@
     "@adminjs/express": "^6.1.1",
     "@adminjs/prisma": "^5.0.3",
     "@faker-js/faker": "^9.5.0",
+    "@vitejs/plugin-react": "^4.3.4",
     "adminjs": "^7.8.15",
     "argon2": "^0.41.1",
     "express": "^4.21.2",
@@ -28,7 +29,8 @@
     "prisma": "^6.3.1",
     "prompts": "^2.4.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "vite-tsconfig-paths": "^5.1.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -48,6 +50,7 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "tsx": "^4.19.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.0.5"
   }
 }
