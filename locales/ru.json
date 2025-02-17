@@ -1,0 +1,34 @@
+{
+  "labels": {
+    "filters": "Фильтры",
+    "selectedRecords": "Выбранные записи",
+    "navigation": "Навигация",
+    "dashboard": "Панель управления"
+  },
+  "messages": {
+    "welcomeOnBoard_title": "Добро пожаловать!",
+    "welcomeOnBoard_subtitle": "",
+    "confirmDeletion": "Следующая запись будет удалена",
+    "successDeletion": "Запись успешно удалена",
+    "successDeletionMany": "{{count}} записей успешно удалено"
+  },
+  "buttons": {
+    "new": "Добавить",
+    "filter": "Фильтр",
+    "save": "Сохранить",
+    "submit": "Отправить",
+    "resetFilter": "Сбросить",
+    "applyChanges": "Применить",
+    "confirmRemovalMany": "Подтвердите удаление {{count}} записей",
+    "confirmRemoval": "Подтвердите удаление {{count}} записи"
+  },
+  "actions": {
+    "list": "Список",
+    "bulkDelete": "Удалить выбранные",
+    "new": "Добавить",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "show": "Детали",
+    "save": "Сохранить"
+  }
+}
