@@ -12,7 +12,7 @@ import type { AuthenticationOptions } from '@adminjs/express';
 import { Database, Resource, getModelByName } from '@adminjs/prisma';
 
 import orm from 'orm';
-import { inLocales } from './path.js';
+import { inLocales } from './path';
 
 export type Options = {
   auth: AuthenticationOptions['authenticate'];

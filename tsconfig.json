@@ -9,9 +9,10 @@
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "Node16",
+    "module": "esnext",
     "resolvePackageJsonExports": true,
-    "moduleResolution": "nodenext",
+    "allowImportingTsExtensions": true,
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -25,7 +26,9 @@
       "@/*": ["./src/*"],
       "@components/*": ["./src/app/components/*"],
       "@actions/*": ["./src/app/actions/*"],
-
+      "@lib/*": ["./lib/*"],
+      "@helpers/*": ["./src/app/helpers/*"],
+      "@utils/*": ["./src/utils/*"],
       "orm": ["./orm/index.ts"]
     }
   },
