@@ -5,12 +5,17 @@ import { resolve } from 'path';
 import type { Router } from 'express';
 
 import AdminJS from 'adminjs';
-import type { AdminJSOptions, LocaleTranslations } from 'adminjs';
+import type {
+  AdminJSOptions,
+  LocaleTranslations,
+  ResourceWithOptions,
+} from 'adminjs';
 import { buildAuthenticatedRouter } from '@adminjs/express';
 import type { AuthenticationOptions } from '@adminjs/express';
 
 import { Database, Resource, getModelByName } from '@adminjs/prisma';
 
+import { componentLoader } from './adminFiles';
 import orm from 'orm';
 import { inLocales } from './path';
 
@@ -22,8 +27,10 @@ export type Options = {
 
 type AutoloadLocalse = Record<string, LocaleTranslations>;
 
+export type Models = Array<string | ResourceWithOptions>;
+
 export default class Admin {
-  public models: string[];
+  public models: Models;
   public options: Options['admin'];
   public auth: Options['auth'];
   public cookieSecret: string;
@@ -31,7 +38,7 @@ export default class Admin {
   private router!: Router;
   private app!: AdminJS;
 
-  constructor(models: string[], options: Options) {
+  constructor(models: Models, options: Options) {
     const { admin, cookieSecret, auth } = options;
 
     this.models = models;
@@ -41,18 +48,21 @@ export default class Admin {
   }
 
   private loadModels() {
-    return this.models.map(modelName => {
-      return {
-        resource: {
-          model: getModelByName(modelName),
-          client: orm,
-        },
-        options: {
-          parent: {
-            name: '',
+    return this.models.map(model => {
+      if (typeof model === 'string')
+        return {
+          resource: {
+            model: getModelByName(model),
+            client: orm,
           },
-        },
-      };
+          options: {
+            parent: {
+              name: '',
+            },
+          },
+        };
+
+      return model;
     });
   }
   private loadLocales() {
@@ -95,6 +105,9 @@ export default class Admin {
     AdminJS.registerAdapter({ Database, Resource });
 
     this.app = new AdminJS({
+      ...this.options,
+      componentLoader,
+
       resources: this.loadModels(),
       locale: this.loadLocales(),
     });

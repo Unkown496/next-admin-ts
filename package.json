@@ -1,6 +1,6 @@
 {
   "name": "next-admin-ts",
-  "version": "1.0.2",
+  "version": "2.0.0-alpha",
   "private": true,
   "type": "module",
   "scripts": {
@@ -18,12 +18,11 @@
     "generate:admin": "tsx ./generate/admin.ts",
     "generate:env-types": "gen-env-types ./.env"
   },
-  "prisma": {
-    "schema": "orm/schema.prisma"
-  },
   "dependencies": {
     "@adminjs/express": "^6.1.1",
     "@adminjs/prisma": "^5.0.3",
+    "@adminjs/typeorm": "^5.0.1",
+    "@adminjs/upload": "^4.0.2",
     "@faker-js/faker": "^9.5.0",
     "@sinclair/typebox": "^0.34.25",
     "@svgr/webpack": "^8.1.0",
@@ -37,7 +36,7 @@
     "jsonwebtoken": "^9.0.2",
     "next": "15.1.7",
     "next-sitemap": "^4.2.3",
-    "prisma": "^6.3.1",
+    "prisma": "5.0.0",
     "prompts": "^2.4.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

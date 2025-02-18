@@ -11,4 +11,23 @@ model Admin {
   id Int @id @default(autoincrement())
   email     String   @unique
   password  String
+
+  fileId Int?
+  file File? @relation(name: "file", fields: [fileId], references: [id])
+
+  photoId Int? @map("file.id")
+  photo File? @relation(name: "photo", fields: [photoId], references: [id])
+}
+
+model File {
+  id Int @id @default(autoincrement())
+
+  s3Key String?
+  bucket String?
+  size Int?
+  mime String?
+
+  AdminFile Admin[] @relation(name: "file")
+
+  AdminPhoto Admin[] @relation(name: "photo")
 }

@@ -6,7 +6,7 @@ import { styleText } from 'node:util';
 import ora from 'ora';
 
 import orm from 'orm';
-import Admin, { Options as OptionsAdmin } from './admin';
+import Admin, { Models, Options as OptionsAdmin } from './admin';
 
 type Options = {
   port?: number;
@@ -47,7 +47,7 @@ export default class App {
   public isProduction: boolean;
   public usePlugins: Options['usePlugins'];
 
-  constructor(models: string[], options: Options) {
+  constructor(models: Models, options: Options) {
     const {
       cookieSecret,
       port = 3000,
