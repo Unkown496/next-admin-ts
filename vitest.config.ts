@@ -14,37 +14,44 @@ export default defineConfig({
         // ignore all files bounding of server init
         '.adminjs',
         '.next',
-        'server.js',
+        'server.ts',
         'locales',
         'public',
         'prisma',
         'generate',
 
+        // ignore custom types for typebox and validation handler
+        'lib/T.ts',
+        'lib/withValidation.ts',
+
+        // orm
+        'orm/**/*.ts',
+
         // ignore root layout
-        'src/app/layout.jsx',
-        'src/app/layout.js',
+        'src/app/layout.tsx',
+        'src/app/layout.ts',
 
         // ignore server utils func
-        'utils/**/*.js',
+        'utils/**/*.ts',
 
         // configs
-        '**/*.config.js',
-        '**/vitest.*.js',
+        '**/*.config.{ts,js}',
+        '**/vitest.*.ts',
 
         // mocks files
-        '**/__mocks__/**/*.js',
-        '**/__mocks__/**/*.jsx',
+        '**/__mocks__/**/*.ts',
+        '**/__mocks__/**/*.tsx',
 
         // small helpers func
-        '**/helpers/**/*.js',
-        'utils/**/*.js',
+        '**/helpers/**/*.ts',
+        'utils/**/*.ts',
 
         // seeds
-        '**/seeds/**/*.js',
+        '**/seeds/**/*.ts',
 
         // cli files
-        '**/cli/*.js',
-        '**/cli/**/*.js',
+        '**/cli/*.ts',
+        '**/cli/**/*.ts',
       ],
     },
   },
