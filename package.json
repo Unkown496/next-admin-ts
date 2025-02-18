@@ -1,6 +1,6 @@
 {
   "name": "next-admin-ts",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -26,6 +26,7 @@
     "@adminjs/prisma": "^5.0.3",
     "@faker-js/faker": "^9.5.0",
     "@sinclair/typebox": "^0.34.25",
+    "@svgr/webpack": "^8.1.0",
     "@testing-library/react": "^16.2.0",
     "@vitejs/plugin-react": "^4.3.4",
     "adminjs": "^7.8.15",
