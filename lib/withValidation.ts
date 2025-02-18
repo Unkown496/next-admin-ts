@@ -18,7 +18,7 @@ type ValidationErrorsResponse = Record<string, { errors: Array<ValueError> }>;
 export default function withValidation<T = unknown>(
   handler: NextVoidHandler<T>,
   schema: Partial<ValidationSchema>,
-): NextHandler<{} | void> {
+): NextHandler<unknown | void> {
   const validateParamsArrayEntries = Object.entries(schema)
     .filter(([schemaKey]) => validationFields.includes(schemaKey))
     .map(([validateKey, validateSchema]) => [
@@ -40,7 +40,7 @@ export default function withValidation<T = unknown>(
       res as NextResponse<T> & { params: Record<string, string> }
     ).params;
 
-    const requestParams: Record<string, any> = {
+    const requestParams: Record<string, unknown> = {
       body: await json(),
       query: Object.fromEntries(reqQuery),
       headers: headersToObject(headers),

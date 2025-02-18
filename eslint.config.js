@@ -18,6 +18,7 @@ const eslintConfig = [
         {
           allowAnonymousClass: false,
           allowAnonymousFunction: true,
+          allowObject: true,
         },
       ],
       '@typescript-eslint/no-explicit-any': [

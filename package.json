@@ -1,6 +1,6 @@
 {
   "name": "next-admin-ts",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,6 +11,7 @@
     "orm:generate": "prisma generate",
     "orm:push": "prisma db push",
     "test": "vitest --run",
+    "postbuild": "next-sitemap --config sitemap.config.js",
     "test:dev": "vitest",
     "test:dev-ui": "vitest --ui",
     "test:coverage": "vitest --run --coverage",
@@ -32,6 +33,7 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "next": "15.1.7",
+    "next-sitemap": "^4.2.3",
     "prisma": "^6.3.1",
     "prompts": "^2.4.2",
     "react": "^19.0.0",

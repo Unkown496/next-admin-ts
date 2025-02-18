@@ -52,3 +52,8 @@ env.d.ts
 
 # adminjs dist
 .adminjs
+
+# sitemap files 
+robots.txt
+sitemap*.xml
+sitemap.xml
