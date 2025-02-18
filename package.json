@@ -33,6 +33,7 @@
     "argon2": "^0.41.1",
     "express": "^4.21.2",
     "express-jsdoc-swagger": "^1.8.0",
+    "helmet": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
     "next": "15.1.7",
     "next-sitemap": "^4.2.3",
