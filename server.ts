@@ -24,6 +24,14 @@ const app = new App(['Admin'], {
   usePlugins(server) {
     server.use(useHelmet());
   },
+
+  adminOptions: {
+    branding: {
+      companyName: 'Admin',
+      logo: false,
+      withMadeWithLove: false,
+    },
+  },
 });
 
 app.init();
