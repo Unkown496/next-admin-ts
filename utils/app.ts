@@ -107,7 +107,7 @@ export default class App {
           admin.adminApp.options.rootPath,
         )}`,
       });
-    }
+    } else loadAdmin.stopAndPersist({ text: 'Admin app not started' });
   }
 
   public init(): void {
