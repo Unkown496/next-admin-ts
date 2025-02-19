@@ -57,3 +57,6 @@ env.d.ts
 robots.txt
 sitemap*.xml
 sitemap.xml
+
+# local provider dir
+public/files/*

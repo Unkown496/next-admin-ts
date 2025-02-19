@@ -1,15 +1,17 @@
 import 'dotenv/config';
 
+import express from 'express';
+
 // express-helmet plugin
 import helmet from 'helmet';
 
 import App from './utils/app';
-import { componentLoader } from './utils/adminFiles';
+import { loadFeature, UploadFeature } from './utils/adminFiles';
 import { Models } from './utils/admin';
+import { getModelByName } from '@adminjs/prisma';
+import { ResourceWithOptions } from 'adminjs';
 
 import orm from 'orm';
-import { getModelByName } from '@adminjs/prisma';
-import uploadFileFeature from '@adminjs/upload';
 
 const useHelmet = () =>
   helmet({
@@ -17,76 +19,67 @@ const useHelmet = () =>
       directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", 'data:', 'blob:'],
       },
     },
   });
 
-const props = () => ({
-  bucket: {
-    type: 'string',
-    isVisible: false,
+const useAdminFiles = () => express.static('public/files');
+
+const localProvider = {
+  bucket: 'public/files',
+  opts: {
+    baseUrl: '/public/files',
   },
-  mime: {
-    type: 'string',
-    isVisible: false,
+};
+
+const Admin = {
+  resource: {
+    model: getModelByName('Admin'),
+    client: orm,
   },
-  s3Key: {
-    type: 'string',
-    isVisible: false,
+  options: {
+    navigation: {
+      name: '',
+      icon: 'User',
+    },
   },
-  size: {
-    type: 'number',
-    isVisible: false,
+  features: [
+    loadFeature({
+      fileResourceName: 'File',
+      fileFields: [
+        { field: 'file', name: 'Файл' },
+        { field: 'photo', name: 'Фотка' },
+      ],
+      loadOptions: {
+        filePath: '/public/files/',
+        fileKey: 's3Key',
+      },
+    }),
+  ],
+} as ResourceWithOptions;
+const File = new UploadFeature({
+  resource: {
+    modelName: 'File',
+    options: {
+      navigation: {
+        name: '',
+        icon: 'File',
+      },
+    },
+  },
+  props: {
+    key: 's3Key',
+    file: 'photo',
+  },
+  names: ['photo'],
+
+  provider: {
+    local: localProvider,
   },
 });
 
-const propsFor = (name?: string, multiple: boolean = false) => {
-  const propsTo = props();
-
-  return Object.keys(propsTo).reduce(
-    (memo, key) => ({
-      ...memo,
-      [`${name}.${key}`]: propsTo[key],
-    }),
-    {},
-  );
-};
-
-const uploadFetureFor = (name: string) => {
-  return uploadFileFeature({
-    componentLoader,
-    provider: {
-      local: {
-        bucket: 'C://public/files',
-        opts: { baseUrl: 'C://public/files' },
-      },
-    },
-    properties: {
-      key: name ? `photo.s3Key` : 'photo.s3Key',
-    },
-  });
-};
-const models: Models = [
-  {
-    resource: ,
-    options: {
-      properties: {
-        fileId: {
-          isVisible: false,
-        },
-        photoId: {
-          isVisible: false,
-        },
-
-        file: {
-          type: 'mixed',
-        },
-      },
-    },
-    features: [uploadFetureFor('')],
-  },
-  'File',
-];
+const models: Models = [Admin, File];
 
 const app = new App(models, {
   isProduction: process.env.NODE_ENV === 'production',
@@ -96,6 +89,7 @@ const app = new App(models, {
 
   usePlugins(server) {
     server.use(useHelmet());
+    server.use('/public/files', useAdminFiles());
   },
 
   adminOptions: {

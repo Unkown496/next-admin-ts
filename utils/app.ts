@@ -7,6 +7,7 @@ import ora from 'ora';
 
 import orm from 'orm';
 import Admin, { Models, Options as OptionsAdmin } from './admin';
+import { join } from 'node:path';
 
 type Options = {
   port?: number;

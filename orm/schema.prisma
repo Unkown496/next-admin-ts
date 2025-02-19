@@ -26,6 +26,7 @@ model File {
   bucket String?
   size Int?
   mime String?
+  filePath String?
 
   AdminFile Admin[] @relation(name: "file")
 

@@ -3,7 +3,8 @@
     "filters": "Фильтры",
     "selectedRecords": "Выбранные записи",
     "navigation": "Навигация",
-    "dashboard": "Панель управления"
+    "dashboard": "Панель управления",
+    "File": "Файлы"
   },
   "messages": {
     "welcomeOnBoard_title": "Добро пожаловать!",

@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import { readdirSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 
@@ -18,6 +20,7 @@ import { Database, Resource, getModelByName } from '@adminjs/prisma';
 import { componentLoader } from './adminFiles';
 import orm from 'orm';
 import { inLocales } from './path';
+import { MetadataFeature } from '../types/feature';
 
 export type Options = {
   auth: AuthenticationOptions['authenticate'];
@@ -27,7 +30,7 @@ export type Options = {
 
 type AutoloadLocalse = Record<string, LocaleTranslations>;
 
-export type Models = Array<string | ResourceWithOptions>;
+export type Models = Array<string | ResourceWithOptions | any>;
 
 export default class Admin {
   public models: Models;
@@ -61,6 +64,10 @@ export default class Admin {
             },
           },
         };
+      if (
+        Reflect.getMetadataKeys(model).includes(MetadataFeature.ResourceField)
+      )
+        return model[Reflect.getMetadata(MetadataFeature.ResourceField, model)];
 
       return model;
     });
