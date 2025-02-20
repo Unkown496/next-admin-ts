@@ -1,6 +1,6 @@
 {
   "name": "next-admin-ts",
-  "version": "2.0.1-alpha",
+  "version": "2.0.2-alpha",
   "private": true,
   "type": "module",
   "scripts": {
@@ -24,7 +24,6 @@
   "dependencies": {
     "@adminjs/express": "^6.1.1",
     "@adminjs/prisma": "^5.0.3",
-    "@adminjs/relations": "^1.1.2",
     "@adminjs/typeorm": "^5.0.1",
     "@adminjs/upload": "^4.0.2",
     "@faker-js/faker": "^9.5.0",

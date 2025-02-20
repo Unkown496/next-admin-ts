@@ -28,7 +28,9 @@
       "@actions/*": ["./src/app/actions/*"],
       "@lib/*": ["./lib/*"],
       "@helpers/*": ["./src/app/helpers/*"],
-      "@utils/*": ["./src/utils/*"],
+      "@utils/*": ["./utils/*"],
+      "@resources/*": ["./resources/*"],
+      "resources": ["./resources/index.ts"],
       "orm": ["./orm/index.ts"]
     }
   },

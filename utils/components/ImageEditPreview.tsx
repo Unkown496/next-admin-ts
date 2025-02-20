@@ -2,8 +2,15 @@ import { FC, useEffect, useState } from 'react';
 
 import ImagePreview from './ImagePreview';
 import { EditPropertyProps, ApiClient } from 'adminjs';
-import { Label, Box, Select, FormGroup } from '@adminjs/design-system';
-import { useResource } from 'adminjs';
+import {
+  Label,
+  Box,
+  Select,
+  FormGroup,
+  Text,
+  Link,
+} from '@adminjs/design-system';
+import { useResource, useTranslation } from 'adminjs';
 
 import { CustomPropertyProps } from './ImageShowPreview';
 import { getRecordImagePath, isEmptyObject } from './file';
@@ -17,9 +24,11 @@ const api = new ApiClient();
 const ImageEditPreview: FC<Props> = ({
   record,
   onChange,
-  property: { custom },
+  property: { custom, resourceId, isRequired = false },
 }) => {
   const { file: fileKey, pathBase, pathKey, fileResourceName } = custom;
+
+  const { t, translateLabel } = useTranslation();
 
   const fileResource = useResource(fileResourceName);
 
@@ -95,14 +104,27 @@ const ImageEditPreview: FC<Props> = ({
 
   return (
     <FormGroup>
-      <Label>{fileKey.name}</Label>
+      <Label required={isRequired}>
+        {translateLabel(fileKey.field, resourceId)}
+      </Label>
 
-      <Box flex flexDirection="row" style={{ gap: '1rem' }}>
-        {apiFiles.length > 0 && (
+      <Box
+        flex
+        flexDirection="row"
+        style={{ gap: '1rem', alignItems: 'center' }}
+      >
+        {apiFiles.length === 0 ? (
+          <>
+            <Text>{translateLabel('NoFiles')}</Text>
+            <Link href={fileResource?.href}>{translateLabel('MakeFiles')}</Link>
+          </>
+        ) : (
           <Box flexGrow={1}>
             <Select
               name={fileKey.field}
+              required={isRequired}
               onChange={handleSetFile}
+              placeholder={translateLabel('SelectFile')}
               options={apiFiles.map(apiFile => ({
                 value: apiFile.id,
                 label: apiFile.id,

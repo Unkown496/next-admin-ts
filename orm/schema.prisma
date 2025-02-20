@@ -12,11 +12,8 @@ model Admin {
   email     String   @unique
   password  String
 
-  fileId Int?
-  file File? @relation(name: "file", fields: [fileId], references: [id])
-
-  photoId Int? @map("file.id")
-  photo File? @relation(name: "photo", fields: [photoId], references: [id])
+  avatarId Int?
+  avatar File? @relation(fields: [avatarId], references: [id])
 }
 
 model File {
@@ -28,7 +25,5 @@ model File {
   mime String?
   filePath String?
 
-  AdminFile Admin[] @relation(name: "file")
-
-  AdminPhoto Admin[] @relation(name: "photo")
+  Admin Admin[]
 }

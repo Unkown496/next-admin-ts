@@ -1,4 +1,4 @@
-import { ShowPropertyProps } from 'adminjs';
+import { ShowPropertyProps, useTranslation } from 'adminjs';
 import { Text, Label, FormGroup } from '@adminjs/design-system';
 
 import { FC, useEffect, useState } from 'react';
@@ -22,10 +22,13 @@ interface Props extends ShowPropertyProps {
 const ImageShowPreview: FC<Props> = ({
   record,
   property: {
+    resourceId,
     custom: { file, pathBase, pathKey },
   },
 }) => {
   const [fileURL, setFileURL] = useState('');
+
+  const { translateLabel } = useTranslation();
 
   useEffect(() => {
     if (!record.populated[file.field]) return;
@@ -36,9 +39,13 @@ const ImageShowPreview: FC<Props> = ({
 
   return (
     <FormGroup>
-      <Label>{file.name}</Label>
+      <Label>{translateLabel(file.field, resourceId)}</Label>
 
-      {!!fileURL ? <ImagePreview src={fileURL} /> : <Text>No image</Text>}
+      {!!fileURL ? (
+        <ImagePreview src={fileURL} />
+      ) : (
+        <Text>{translateLabel('NoFiles')}</Text>
+      )}
     </FormGroup>
   );
 };

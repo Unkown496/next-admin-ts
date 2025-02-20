@@ -141,7 +141,8 @@ export const Components = {
 
 export type FileField = {
   field: string;
-  name: string;
+  name?: string;
+  options?: PropertyOptions;
 };
 
 type OptionsLoadFeature = {
@@ -171,19 +172,28 @@ export const loadFeature = (options: OptionsLoadFeature): FeatureType => {
 
   const fileProps: Record<string, PropertyOptions> = {};
 
+  const fileField = {
+    isVisible: true,
+    components: {
+      show: Components.ImageShowPreview,
+      edit: Components.ImageEditPreview,
+      list: Components.ImageListPreview,
+    },
+    custom: {
+      fileResourceName: options.fileResourceName,
+      pathKey: loadOptions.fileKey,
+      pathBase: loadOptions.filePath,
+    },
+  };
+
   fileFields.forEach(file => {
     fileProps[file.field] = {
-      isVisible: true,
-      components: {
-        show: Components.ImageShowPreview,
-        edit: Components.ImageEditPreview,
-        list: Components.ImageListPreview,
-      },
+      ...fileField,
+      ...file.options,
       custom: {
-        file: file,
-        fileResourceName: options.fileResourceName,
-        pathKey: loadOptions.fileKey,
-        pathBase: loadOptions.filePath,
+        ...fileField.custom,
+        ...file.options?.custom,
+        file,
       },
     };
   });

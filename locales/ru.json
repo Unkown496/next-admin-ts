@@ -4,8 +4,21 @@
     "selectedRecords": "Выбранные записи",
     "navigation": "Навигация",
     "dashboard": "Панель управления",
-    "File": "Файлы"
+    "File": "Файлы",
+    "NoFiles": "Нет файлов",
+    "MakeFiles": "Создать",
+    "SelectFile": "Выберите файл"
   },
+
+  "resources": {
+    "Admin": {
+      "labels": {
+        "avatar": "Аватар",
+        "password": "Пароль"
+      }
+    }
+  },
+
   "messages": {
     "welcomeOnBoard_title": "Добро пожаловать!",
     "welcomeOnBoard_subtitle": "",

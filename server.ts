@@ -6,12 +6,9 @@ import express from 'express';
 import helmet from 'helmet';
 
 import App from './utils/app';
-import { loadFeature, UploadFeature } from './utils/adminFiles';
 import { Models } from './utils/admin';
-import { getModelByName } from '@adminjs/prisma';
-import { ResourceWithOptions } from 'adminjs';
 
-import orm from 'orm';
+import { Admin, File } from 'resources';
 
 const useHelmet = () =>
   helmet({
@@ -24,60 +21,7 @@ const useHelmet = () =>
     },
   });
 
-const useAdminFiles = () => express.static('public/files');
-
-const localProvider = {
-  bucket: 'public/files',
-  opts: {
-    baseUrl: '/public/files',
-  },
-};
-
-const Admin = {
-  resource: {
-    model: getModelByName('Admin'),
-    client: orm,
-  },
-  options: {
-    navigation: {
-      name: '',
-      icon: 'User',
-    },
-  },
-  features: [
-    loadFeature({
-      fileResourceName: 'File',
-      fileFields: [
-        { field: 'file', name: 'Файл' },
-        { field: 'photo', name: 'Фотка' },
-      ],
-      loadOptions: {
-        filePath: '/public/files/',
-        fileKey: 's3Key',
-      },
-    }),
-  ],
-} as ResourceWithOptions;
-const File = new UploadFeature({
-  resource: {
-    modelName: 'File',
-    options: {
-      navigation: {
-        name: '',
-        icon: 'File',
-      },
-    },
-  },
-  props: {
-    key: 's3Key',
-    file: 'photo',
-  },
-  names: ['photo'],
-
-  provider: {
-    local: localProvider,
-  },
-});
+const useAdminFiles = () => express.static('C://public/files');
 
 const models: Models = [Admin, File];
 

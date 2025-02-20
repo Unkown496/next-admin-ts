@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from 'react';
 import ImagePreview from './ImagePreview';
 import {
   useResource,
+  useTranslation,
   type PropertyJSON,
   type RecordInListProps,
 } from 'adminjs';
@@ -17,6 +18,7 @@ interface Props extends RecordInListProps {
 const ImageListPreview: FC<Props> = ({
   record,
   property: {
+    resourceId,
     custom: { file, pathBase, pathKey, fileResourceName },
   },
 }) => {
@@ -24,6 +26,8 @@ const ImageListPreview: FC<Props> = ({
     [fileEditHref, setFileEidtHref] = useState('');
 
   const fileResource = useResource(fileResourceName);
+
+  const { translateLabel } = useTranslation();
 
   useEffect(() => {
     if (!fileResource) return;
@@ -45,7 +49,7 @@ const ImageListPreview: FC<Props> = ({
           <Link href={fileEditHref}>{record.populated[file.field]?.id}</Link>
         </>
       ) : (
-        <Text>Not Image</Text>
+        <Text>{translateLabel('NoFiles')}</Text>
       )}
     </Box>
   );
