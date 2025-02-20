@@ -15,7 +15,7 @@
 ```bash
 git clone https://github.com/Unkown496/next-admin-ts.git <folder-name>
 cd <folder-name>
-git remote remove origin # Отвязка от исходного репозитория
+git remote remove origin # Отвязка от исходного репозитория либо удалить папку .git
 cp .env.example .env # Заполните .env
 npm i
 npm run dev|start # Перед start сделать npm run build
