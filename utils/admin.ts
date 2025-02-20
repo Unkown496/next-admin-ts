@@ -12,7 +12,7 @@ import type {
   LocaleTranslations,
   ResourceWithOptions,
 } from 'adminjs';
-import { buildAuthenticatedRouter, buildRouter } from '@adminjs/express';
+import { buildAuthenticatedRouter } from '@adminjs/express';
 import type { AuthenticationOptions } from '@adminjs/express';
 
 import { Database, Resource, getModelByName } from '@adminjs/prisma';
@@ -119,14 +119,11 @@ export default class Admin {
       locale: this.loadLocales(),
     });
 
-    this.app.watch();
-
-    // this.router = buildAuthenticatedRouter(this.app, {
-    //   cookieName: 'adminAuth',
-    //   authenticate: this.auth,
-    //   cookiePassword: this.cookieSecret,
-    // });
-    this.router = buildRouter(this.app);
+    this.router = buildAuthenticatedRouter(this.app, {
+      cookieName: 'adminAuth',
+      authenticate: this.auth,
+      cookiePassword: this.cookieSecret,
+    });
 
     return {
       adminApp: this.app,
