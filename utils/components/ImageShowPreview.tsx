@@ -28,7 +28,7 @@ const ImageShowPreview: FC<Props> = ({
 }) => {
   const [fileURL, setFileURL] = useState('');
 
-  const { translateLabel } = useTranslation();
+  const { translateLabel, translateProperty } = useTranslation();
 
   useEffect(() => {
     if (!record.populated[file.field]) return;
@@ -39,7 +39,7 @@ const ImageShowPreview: FC<Props> = ({
 
   return (
     <FormGroup>
-      <Label>{translateLabel(file.field, resourceId)}</Label>
+      <Label>{translateProperty(file.field, resourceId)}</Label>
 
       {!!fileURL ? (
         <ImagePreview src={fileURL} />

@@ -24,10 +24,10 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@components/*": ["./src/app/components/*"],
-      "@actions/*": ["./src/app/actions/*"],
+      "@components/*": ["./src/components/*"],
+      "@actions/*": ["./src/actions/*"],
       "@lib/*": ["./lib/*"],
-      "@helpers/*": ["./src/app/helpers/*"],
+      "@helpers/*": ["./src/helpers/*"],
       "@utils/*": ["./utils/*"],
       "@resources/*": ["./resources/*"],
       "resources": ["./resources/index.ts"],
