@@ -86,7 +86,6 @@ export default class App {
     this.nextServer = next({
       port: this.port,
       dev: !this.isProduction,
-      turbopack: true,
     });
 
     return;
