@@ -65,6 +65,8 @@ export default class App {
     this.port = port;
     this.isProduction = isProduction;
     this.usePlugins = usePlugins;
+
+    this.init();
   }
 
   private initExpress() {
@@ -109,7 +111,7 @@ export default class App {
     } else loadAdmin.stopAndPersist({ text: "Admin app not started" });
   }
 
-  public init(): void {
+  private init(): void {
     load.start();
 
     this.initNext();

@@ -34,7 +34,7 @@ const app = new App(models, {
 
   usePlugins(server) {
     server.use(useHelmet());
-    server.use("/public/files", useAdminFiles());
+    server.use(localProvider.opts.baseUrl, useAdminFiles());
   },
 
   adminOptions: {
@@ -45,5 +45,3 @@ const app = new App(models, {
     },
   },
 });
-
-app.init();
