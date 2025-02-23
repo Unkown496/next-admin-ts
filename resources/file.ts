@@ -1,7 +1,7 @@
 import { UploadFeature } from "admin";
 
 export const localProvider = {
-  bucket: "public/files",
+  bucket: "C://public/files",
   opts: {
     baseUrl: "/files",
   },

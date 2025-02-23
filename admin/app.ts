@@ -12,7 +12,7 @@ import type {
   LocaleTranslations,
   ResourceWithOptions,
 } from "adminjs";
-import { buildAuthenticatedRouter } from "@adminjs/express";
+import { buildAuthenticatedRouter, buildRouter } from "@adminjs/express";
 import type { AuthenticationOptions } from "@adminjs/express";
 
 import { Database, Resource, getModelByName } from "@adminjs/prisma";
@@ -122,11 +122,13 @@ export default class Admin {
     // if is dev start run a watcher
     if (!isProduction) this.app.watch();
 
-    this.router = buildAuthenticatedRouter(this.app, {
-      cookieName: "adminAuth",
-      authenticate: this.auth,
-      cookiePassword: this.cookieSecret,
-    });
+    if (!isProduction) this.router = buildRouter(this.app);
+    else
+      this.router = buildAuthenticatedRouter(this.app, {
+        cookieName: "adminAuth",
+        authenticate: this.auth,
+        cookiePassword: this.cookieSecret,
+      });
 
     return {
       adminApp: this.app,

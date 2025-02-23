@@ -1,10 +1,10 @@
-import { ShowPropertyProps, useTranslation } from 'adminjs';
-import { Text, Label, FormGroup } from '@adminjs/design-system';
+import { ShowPropertyProps, useTranslation } from "adminjs";
+import { Text, Label, FormGroup } from "@adminjs/design-system";
 
-import { FC, useEffect, useState } from 'react';
-import { FileField } from '../adminFiles';
-import { getRecordImagePath, isEmptyObject } from './file';
-import ImagePreview from './ImagePreview';
+import { FC, useEffect, useState } from "react";
+import { FileField } from "@admin/features/files";
+import { getRecordImagePath, isEmptyObject } from "./file";
+import ImagePreview from "./ImagePreview";
 
 export type CustomPropertyProps = {
   custom: {
@@ -16,7 +16,7 @@ export type CustomPropertyProps = {
 };
 
 interface Props extends ShowPropertyProps {
-  property: Omit<ShowPropertyProps['property'], 'custom'> & CustomPropertyProps;
+  property: Omit<ShowPropertyProps["property"], "custom"> & CustomPropertyProps;
 }
 
 const ImageShowPreview: FC<Props> = ({
@@ -26,7 +26,7 @@ const ImageShowPreview: FC<Props> = ({
     custom: { file, pathBase, pathKey },
   },
 }) => {
-  const [fileURL, setFileURL] = useState('');
+  const [fileURL, setFileURL] = useState("");
 
   const { translateLabel, translateProperty } = useTranslation();
 
@@ -44,7 +44,7 @@ const ImageShowPreview: FC<Props> = ({
       {!!fileURL ? (
         <ImagePreview src={fileURL} />
       ) : (
-        <Text>{translateLabel('NoFiles')}</Text>
+        <Text>{translateLabel("NoFiles")}</Text>
       )}
     </FormGroup>
   );

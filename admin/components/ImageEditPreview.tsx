@@ -1,7 +1,7 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from "react";
 
-import ImagePreview from './ImagePreview';
-import { EditPropertyProps, ApiClient } from 'adminjs';
+import ImagePreview from "./ImagePreview";
+import { EditPropertyProps, ApiClient } from "adminjs";
 import {
   Label,
   Box,
@@ -9,14 +9,14 @@ import {
   FormGroup,
   Text,
   Link,
-} from '@adminjs/design-system';
-import { useResource, useTranslation } from 'adminjs';
+} from "@adminjs/design-system";
+import { useResource, useTranslation } from "adminjs";
 
-import { CustomPropertyProps } from './ImageShowPreview';
-import { getRecordImagePath, isEmptyObject } from './file';
+import { CustomPropertyProps } from "./ImageShowPreview";
+import { getRecordImagePath, isEmptyObject } from "./file";
 
 interface Props extends EditPropertyProps {
-  property: Omit<EditPropertyProps['property'], 'custom'> & CustomPropertyProps;
+  property: Omit<EditPropertyProps["property"], "custom"> & CustomPropertyProps;
 }
 
 const api = new ApiClient();
@@ -28,7 +28,7 @@ const ImageEditPreview: FC<Props> = ({
 }) => {
   const { file: fileKey, pathBase, pathKey, fileResourceName } = custom;
 
-  const { t, translateLabel } = useTranslation();
+  const { translateLabel } = useTranslation();
 
   const fileResource = useResource(fileResourceName);
 
@@ -38,7 +38,7 @@ const ImageEditPreview: FC<Props> = ({
         imagePreviewURL: string;
       }>
     >([]),
-    [selectApiFile, setSelectApiFile] = useState('');
+    [selectApiFile, setSelectApiFile] = useState("");
 
   const [valueSelectFile, setValueSelectFile] = useState<null | {
     value: number;
@@ -52,7 +52,7 @@ const ImageEditPreview: FC<Props> = ({
     const idOfFile = record.params[fileKey.field];
 
     setSelectApiFile(
-      getRecordImagePath(record, fileKey.field, pathKey, pathBase),
+      getRecordImagePath(record, fileKey.field, pathKey, pathBase)
     );
     setValueSelectFile({ value: idOfFile, label: idOfFile });
   }, []);
@@ -61,7 +61,7 @@ const ImageEditPreview: FC<Props> = ({
     const getApiFiles = async () => {
       const searchFileRecords = await api.searchRecords({
         resourceId: fileResourceName,
-        query: '',
+        query: "",
       });
 
       if (searchFileRecords.length === 0) return;
@@ -82,7 +82,7 @@ const ImageEditPreview: FC<Props> = ({
   const handleSetFile = (data: { value: number; label: number }) => {
     if (data === null) {
       setValueSelectFile(null);
-      setSelectApiFile('');
+      setSelectApiFile("");
 
       onChange(fileKey.field, null);
 
@@ -111,12 +111,12 @@ const ImageEditPreview: FC<Props> = ({
       <Box
         flex
         flexDirection="row"
-        style={{ gap: '1rem', alignItems: 'center' }}
+        style={{ gap: "1rem", alignItems: "center" }}
       >
         {apiFiles.length === 0 ? (
           <>
-            <Text>{translateLabel('NoFiles')}</Text>
-            <Link href={fileResource?.href}>{translateLabel('MakeFiles')}</Link>
+            <Text>{translateLabel("NoFiles")}</Text>
+            <Link href={fileResource?.href}>{translateLabel("MakeFiles")}</Link>
           </>
         ) : (
           <Box flexGrow={1}>
@@ -124,7 +124,7 @@ const ImageEditPreview: FC<Props> = ({
               name={fileKey.field}
               required={isRequired}
               onChange={handleSetFile}
-              placeholder={translateLabel('SelectFile')}
+              placeholder={translateLabel("SelectFile")}
               options={apiFiles.map(apiFile => ({
                 value: apiFile.id,
                 label: apiFile.id,

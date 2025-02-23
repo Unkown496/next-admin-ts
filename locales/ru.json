@@ -19,22 +19,85 @@
     }
   },
 
+  "components": {
+    "DropZone": {
+      "placeholder": "Выкиньте файлы сюда, либо выберите",
+      "acceptedSize": "Максимальный размер: {{maxSize}}",
+      "acceptedType": "Поддерживаемые типы: {{mimeTypes}}",
+      "unsupportedSize": "Файл {{fileName}} слишком большой",
+      "unsupportedType": "Файл {{fileName}} не поддерживаемого типа: {{fileType}}"
+    },
+    "Login": {
+      "welcomeHeader": "Здаравствуйте",
+      "welcomeMessage": "Админ-панель",
+      "properties": {
+        "email": "Email",
+        "password": "Пароль"
+      },
+      "loginButton": "Войти"
+    }
+  },
+
   "messages": {
     "welcomeOnBoard_title": "Добро пожаловать!",
     "welcomeOnBoard_subtitle": "",
+
     "confirmDeletion": "Следующая запись будет удалена",
+
     "successDeletion": "Запись успешно удалена",
-    "successDeletionMany": "{{count}} записей успешно удалено"
+    "successDeletionMany": "{{count}} записей успешно удалено",
+    "successfullyBulkDeleted": "Успешно удалено {{count}} запись",
+    "successfullyBulkDeleted_plural": "Успешно удалено {{count}} записей",
+    "successfullyDeleted": "Запись успешно удалена",
+    "successfullyUpdated": "Запись успешно обновлена",
+    "successfullyCreated": "Запись успешно создана",
+
+    "thereWereValidationErrors": "Есть ошибки валидации - проверьте их ниже",
+
+    "forbiddenError": "Вы не можете выполнить действие {{actionName}} для {{resourceId}}",
+    "anyForbiddenError": "Вы не можете выполнить данное действие",
+
+    "bulkDeleteError": "Произошла ошибка при удалении записей. Посмотрите консоль для получения дополнительной информации",
+
+    "errorFetchingRecords": "Произошла ошибка при получении записей. Посмотрите консоль для получения дополнительной информации",
+    "errorFetchingRecord": "Произошла ошибка при получении записи. Посмотрите консоль для получения дополнительной информации",
+
+    "theseRecordsWillBeRemoved": "Следующая запись будет удалена",
+    "theseRecordsWillBeRemoved_plural": "Следующие записи будут удалены",
+
+    "pickSomeFirstToRemove": "Для удаления записей, сначала выберите их",
+
+    "error404Resource": "Ресурс с указанным id: {{resourceId}} не найден",
+    "error404Action": "Ресурс с указанным id: {{resourceId}} не имеет действия с именем: {{actionName}} или у вас нет прав на его выполнение!",
+    "error404Record": "Ресурс с указанным id: {{resourceId}} не имеет записи с id: {{recordId}} или у вас нет прав на его использование!",
+
+    "seeConsoleForMore": "Посмотрите консоль разработчика для получения дополнительных данных...",
+
+    "noRecordsSelected": "Вы не выбрали записи",
+    "noActionComponent": "Необходимо реализовать компонент действия для вашего действия",
+    "noRecordsInResource": "В этом ресурсе нет записей",
+    "noRecords": "Нет записей"
   },
   "buttons": {
     "new": "Добавить",
+    "addNewItem": "Добавить новый элемент",
+    "createFirstRecord": "Создать первую запись",
+
     "filter": "Фильтр",
+    "resetFilter": "Сбросить",
+    "filterActive": "Фильтр ({{count}})",
+
+    "logout": "Выйти",
+    "login": "Вход",
+
     "save": "Сохранить",
     "submit": "Отправить",
-    "resetFilter": "Сбросить",
     "applyChanges": "Применить",
+
     "confirmRemovalMany": "Подтвердите удаление {{count}} записей",
-    "confirmRemoval": "Подтвердите удаление {{count}} записи"
+    "confirmRemoval": "Подтвердите удаление {{count}} записи",
+
+    "contactUs": "Контакты"
   },
   "actions": {
     "list": "Список",
