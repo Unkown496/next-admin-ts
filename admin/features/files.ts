@@ -1,44 +1,45 @@
-import 'reflect-metadata';
+import "reflect-metadata";
 
 import {
   buildFeature,
-  ComponentLoader,
   FeatureType,
   PropertyOptions,
   ResourceWithOptions,
-} from 'adminjs';
-import { getModelByName } from '@adminjs/prisma';
+} from "adminjs";
+import { getModelByName } from "@adminjs/prisma";
+import uploadFileFeature, { UploadOptions } from "@adminjs/upload";
 
-import orm from 'orm';
-import uploadFileFeature, { UploadOptions } from '@adminjs/upload';
-import { FeatureCallback, MetadataFeature } from '../types/feature';
+import orm from "orm";
+
+import { FeatureCallback, MetadataFeature } from "types/feature";
+import { componentLoader, Components } from "@admin/features/component";
 
 type Options = {
   resource: {
     modelName: string;
-    options?: ResourceWithOptions['options'];
-    feature?: ResourceWithOptions['features'];
+    options?: ResourceWithOptions["options"];
+    feature?: ResourceWithOptions["features"];
   };
-  provider: UploadOptions['provider'];
+  provider: UploadOptions["provider"];
   multiple?: boolean;
-  props: UploadOptions['properties'];
+  props: UploadOptions["properties"];
   names: string[];
 };
 
 export class UploadFeature {
-  public uploadProps: Options['props'] = {
-    key: '',
-    bucket: 'bucket',
-    mimeType: 'mime',
-    size: 'size',
-    file: 'file',
-    filename: 'filename',
-    filePath: 'filePath',
+  public uploadProps: Options["props"] = {
+    key: "",
+    bucket: "bucket",
+    mimeType: "mime",
+    size: "size",
+    file: "file",
+    filename: "filename",
+    filePath: "filePath",
   };
-  public uploadProvider: Options['provider'];
-  public resourceOptions: Options['resource'];
+  public uploadProvider: Options["provider"];
+  public resourceOptions: Options["resource"];
   public multiple: boolean;
-  public names: Record<string, { type: 'mixed' }>;
+  public names: Record<string, { type: "mixed" }>;
 
   private fileFeature!: FeatureCallback;
   public resource: ResourceWithOptions = {
@@ -55,13 +56,13 @@ export class UploadFeature {
     this.multiple = multiple;
     this.names = names.reduce((_, key) => {
       return {
-        [key]: { type: 'mixed' },
+        [key]: { type: "mixed" },
       };
     }, {});
 
     this.init();
 
-    Reflect.defineMetadata(MetadataFeature.ResourceField, 'resource', this);
+    Reflect.defineMetadata(MetadataFeature.ResourceField, "resource", this);
   }
 
   private init() {
@@ -74,17 +75,17 @@ export class UploadFeature {
 
     const specificTypeOfField: Record<string, PropertyOptions> = {
       size: {
-        type: 'number',
+        type: "number",
       },
     };
 
-    ['key', 'bucket', 'mimeType', 'size', 'filePath'].forEach(hideFieldKey => {
+    ["key", "bucket", "mimeType", "size", "filePath"].forEach(hideFieldKey => {
       // @ts-ignore
       const hideField = this.uploadProps[hideFieldKey] as string;
 
       hideFileField[hideField] = {
         isVisible: false,
-        ...(specificTypeOfField[hideField] ?? { type: 'string' }),
+        ...(specificTypeOfField[hideField] ?? { type: "string" }),
       };
     });
     this.resource.options.properties = {
@@ -122,23 +123,6 @@ export class UploadFeature {
   }
 }
 
-export const componentLoader = new ComponentLoader();
-
-export const Components = {
-  ImageShowPreview: componentLoader.add(
-    'ImageShowPreview',
-    './components/ImageShowPreview',
-  ),
-  ImageEditPreview: componentLoader.add(
-    'ImageEditPreview',
-    './components/ImageEditPreview',
-  ),
-  ImageListPreview: componentLoader.add(
-    'ImageListPreview',
-    './components/ImageListPreview',
-  ),
-};
-
 export type FileField = {
   field: string;
   name?: string;
@@ -162,11 +146,11 @@ export const loadFeature = (options: OptionsLoadFeature): FeatureType => {
   const {
     fileFields,
     loadOptions = {
-      fileKey: '',
-      filePath: '',
-      bucketKey: 'bucket',
-      mimeTypeKey: 'mime',
-      sizeKey: 'size',
+      fileKey: "",
+      filePath: "",
+      bucketKey: "bucket",
+      mimeTypeKey: "mime",
+      sizeKey: "size",
     },
   } = options;
 

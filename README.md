@@ -70,14 +70,20 @@ COOKIE_SECRET=
 
 `lib` - Самописные плагины для `next`
 
+- `/admin`
+
+  - `/components` - Кастомные компоненты админки
+  - `/features` - Кастомные [features](https://docs.adminjs.co/basics/features) или настройки/надстройки для уже готовых
+    - `/components.ts` - Файл `componentLoader` всего проекта
+
 # Выход к adminjs
 
 ```ts
-const app = new App(['Admin'], {
-  isProduction: process.env.NODE_ENV === 'production',
+const app = new App(["Admin"], {
+  isProduction: process.env.NODE_ENV === "production",
   port: +process.env.PORT || 3000,
 
-  cookieSecret: process.env.COOKIE_SECRET || 'secret',
+  cookieSecret: process.env.COOKIE_SECRET || "secret",
 
   adminOptions: {}, // Выход к AdminJSOptions
 });
@@ -136,7 +142,7 @@ model Admin {
 Это прямой выход к обьекту `Express`
 
 ```js
-new App(['SomeModels'], {
+new App(["SomeModels"], {
   usePlugins(server) {
     server.use(someExpressPlugin());
   },

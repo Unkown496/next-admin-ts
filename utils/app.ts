@@ -1,36 +1,35 @@
-import express, { Express } from 'express';
-import next from 'next';
+import express, { Express } from "express";
+import next from "next";
 
-import { styleText } from 'node:util';
+import { styleText } from "node:util";
 
-import ora from 'ora';
+import ora from "ora";
 
-import orm from 'orm';
-import Admin, { Models, Options as OptionsAdmin } from './admin';
-import { join } from 'node:path';
+import orm from "orm";
+import Admin, { Models, Options as OptionsAdmin } from "@admin/app";
 
 type Options = {
   port?: number;
   isProduction?: boolean;
-  adminOptions?: OptionsAdmin['admin'];
+  adminOptions?: OptionsAdmin["admin"];
 
   cookieSecret: string;
 
   usePlugins?: (
     server: Express,
-    options: Pick<Options, 'isProduction' | 'port'>,
+    options: Pick<Options, "isProduction" | "port">
   ) => void;
 };
 
 const load = ora({
-    text: 'Initialization server...',
+    text: "Initialization server...",
     hideCursor: true,
-    prefixText: styleText('blue', 'server:'),
+    prefixText: styleText("blue", "server:"),
   }),
   loadAdmin = ora({
-    text: 'Initilazation admin app...',
+    text: "Initilazation admin app...",
     hideCursor: true,
-    prefixText: styleText('magenta', 'admin:'),
+    prefixText: styleText("magenta", "admin:"),
   });
 
 const appAuth = async (email: string, password: string) => {
@@ -46,7 +45,7 @@ export default class App {
 
   public port: number;
   public isProduction: boolean;
-  public usePlugins: Options['usePlugins'];
+  public usePlugins: Options["usePlugins"];
 
   constructor(models: Models, options: Options) {
     const {
@@ -71,8 +70,8 @@ export default class App {
   private initExpress() {
     this.expressServer = express();
 
-    this.expressServer.set('isDev', !this.isProduction);
-    this.expressServer.set('port', this.port);
+    this.expressServer.set("isDev", !this.isProduction);
+    this.expressServer.set("port", this.port);
 
     if (!!this.usePlugins)
       this.usePlugins(this.expressServer, {
@@ -93,21 +92,21 @@ export default class App {
   private initAdmin() {
     loadAdmin.start();
 
-    const admin = this.adminApp.init();
+    const admin = this.adminApp.init(this.isProduction);
 
     if (!!admin) {
       this.expressServer.use(
         admin.adminApp.options.rootPath,
-        admin.adminRouter,
+        admin.adminRouter
       );
 
       loadAdmin.stopAndPersist({
         text: `Admin app successfylly start on path ${styleText(
-          'cyan',
-          admin.adminApp.options.rootPath,
+          "cyan",
+          admin.adminApp.options.rootPath
         )}`,
       });
-    } else loadAdmin.stopAndPersist({ text: 'Admin app not started' });
+    } else loadAdmin.stopAndPersist({ text: "Admin app not started" });
   }
 
   public init(): void {
@@ -122,17 +121,17 @@ export default class App {
 
       this.initAdmin();
 
-      this.expressServer.all('*', (req, res) => nextHandle(req, res));
+      this.expressServer.all("*", (req, res) => nextHandle(req, res));
 
       this.expressServer.listen(this.port, err => {
         if (err) return this.nextServer.logError(err);
 
         load.stopAndPersist({
           text: `Server successfilly running at ${styleText(
-            'green',
+            "green",
             this.isProduction
               ? `port:${this.port}`
-              : `http://localhost:${this.port}`,
+              : `http://localhost:${this.port}`
           )}`,
         });
 

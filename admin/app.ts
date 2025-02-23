@@ -1,31 +1,31 @@
-import 'reflect-metadata';
+import "reflect-metadata";
 
-import { readdirSync, readFileSync } from 'fs';
-import { resolve } from 'path';
+import { readdirSync, readFileSync } from "fs";
+import { resolve } from "path";
 
 // admin deps
-import type { Router } from 'express';
+import type { Router } from "express";
 
-import AdminJS from 'adminjs';
+import AdminJS from "adminjs";
 import type {
   AdminJSOptions,
   LocaleTranslations,
   ResourceWithOptions,
-} from 'adminjs';
-import { buildAuthenticatedRouter } from '@adminjs/express';
-import type { AuthenticationOptions } from '@adminjs/express';
+} from "adminjs";
+import { buildAuthenticatedRouter } from "@adminjs/express";
+import type { AuthenticationOptions } from "@adminjs/express";
 
-import { Database, Resource, getModelByName } from '@adminjs/prisma';
+import { Database, Resource, getModelByName } from "@adminjs/prisma";
 
-import { componentLoader } from './adminFiles';
-import orm from 'orm';
-import { inLocales } from './path';
-import { MetadataFeature } from '../types/feature';
+import { componentLoader } from "@admin/features/component";
+import orm from "orm";
+import { inLocales } from "@utils/path";
+import { MetadataFeature } from "../types/feature";
 
 export type Options = {
-  auth: AuthenticationOptions['authenticate'];
+  auth: AuthenticationOptions["authenticate"];
   cookieSecret: string;
-  admin: Omit<AdminJSOptions, 'resources' | 'rootPath'>;
+  admin: Omit<AdminJSOptions, "resources" | "rootPath">;
 };
 
 type AutoloadLocalse = Record<string, LocaleTranslations>;
@@ -34,8 +34,8 @@ export type Models = Array<string | ResourceWithOptions | any>;
 
 export default class Admin {
   public models: Models;
-  public options: Options['admin'];
-  public auth: Options['auth'];
+  public options: Options["admin"];
+  public auth: Options["auth"];
   public cookieSecret: string;
 
   private router!: Router;
@@ -52,7 +52,7 @@ export default class Admin {
 
   private loadModels() {
     return this.models.map(model => {
-      if (typeof model === 'string')
+      if (typeof model === "string")
         return {
           resource: {
             model: getModelByName(model),
@@ -60,7 +60,7 @@ export default class Admin {
           },
           options: {
             parent: {
-              name: '',
+              name: "",
             },
           },
         };
@@ -75,25 +75,25 @@ export default class Admin {
   private loadLocales() {
     const adminLocales: AutoloadLocalse = {};
 
-    let localesInDir = readdirSync(resolve('./locales'));
+    let localesInDir = readdirSync(resolve("./locales"));
     if (localesInDir.length === 0) return;
 
     localesInDir = localesInDir.filter(
-      localeFile => localeFile.split('.')[1] === 'json',
+      localeFile => localeFile.split(".")[1] === "json"
     );
 
     localesInDir.forEach(localFileName => {
       const localeData = JSON.parse(
-        readFileSync(inLocales(localFileName), 'utf-8'),
+        readFileSync(inLocales(localFileName), "utf-8")
       );
-      const localeName = localFileName.split('.')[0];
+      const localeName = localFileName.split(".")[0];
 
       adminLocales[localeName] = localeData;
     });
 
     return {
-      language: 'en',
-      availableLanguages: ['en', ...Object.keys(adminLocales)],
+      language: "en",
+      availableLanguages: ["en", ...Object.keys(adminLocales)],
       localeDetection: true,
       translations: {
         ...adminLocales,
@@ -101,12 +101,12 @@ export default class Admin {
     };
   }
 
-  init() {
+  init(isProduction: boolean) {
     if (this.models.length === 0)
       return console.warn("Models is empty, admin dashboard can't initialize!");
     if (!this.auth)
       return console.warn(
-        "Auth callback is not defined, can't initialize admin!",
+        "Auth callback is not defined, can't initialize admin!"
       );
 
     AdminJS.registerAdapter({ Database, Resource });
@@ -119,8 +119,11 @@ export default class Admin {
       locale: this.loadLocales(),
     });
 
+    // if is dev start run a watcher
+    if (!isProduction) this.app.watch();
+
     this.router = buildAuthenticatedRouter(this.app, {
-      cookieName: 'adminAuth',
+      cookieName: "adminAuth",
       authenticate: this.auth,
       cookiePassword: this.cookieSecret,
     });

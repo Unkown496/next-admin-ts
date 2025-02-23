@@ -30,6 +30,11 @@
       "@helpers/*": ["./src/helpers/*"],
       "@utils/*": ["./utils/*"],
       "@resources/*": ["./resources/*"],
+      "@admin/*": ["./admin/*"],
+
+      "types/*": ["./types/*"],
+
+      "admin": ["./admin/index.ts"],
       "resources": ["./resources/index.ts"],
       "orm": ["./orm/index.ts"]
     }

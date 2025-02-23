@@ -60,3 +60,7 @@ sitemap.xml
 
 # local provider dir
 public/files/*
+
+# prisma folder
+prisma
+prisma/**/*

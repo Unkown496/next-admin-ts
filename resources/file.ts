@@ -1,27 +1,27 @@
-import { UploadFeature } from '../utils/adminFiles';
+import { UploadFeature } from "admin";
 
 export const localProvider = {
-  bucket: 'C://public/files',
+  bucket: "/files",
   opts: {
-    baseUrl: '/public/files',
+    baseUrl: "/files",
   },
 };
 
 export const File = new UploadFeature({
   resource: {
-    modelName: 'File',
+    modelName: "File",
     options: {
       navigation: {
-        name: '',
-        icon: 'File',
+        name: "",
+        icon: "File",
       },
     },
   },
   props: {
-    key: 's3Key',
-    file: 'photo',
+    key: "s3Key",
+    file: "photo",
   },
-  names: ['photo'],
+  names: ["photo"],
 
   provider: {
     local: localProvider,

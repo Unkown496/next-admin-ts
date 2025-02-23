@@ -1,6 +1,6 @@
 {
   "name": "next-admin-ts",
-  "version": "2.0.5-alpha",
+  "version": "2.0.6-alpha",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,6 +10,7 @@
     "lint": "next lint",
     "orm:generate": "prisma generate",
     "orm:push": "prisma db push",
+    "orm": "prisma",
     "test": "vitest --run",
     "postbuild": "next-sitemap --config sitemap.config.js",
     "test:dev": "vitest",
